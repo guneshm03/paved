@@ -1,0 +1,10 @@
+# build outputs
+/bin/
+/dist/
+coverage.out
+coverage.html
+*.test
+*.prof
+# scaffolder demo output
+/.demo-out/
+.DS_Store
