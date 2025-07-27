@@ -1,0 +1,57 @@
+apiVersion: paved.dev/v1
+kind: Scorecard
+metadata:
+  name: production-readiness
+  title: Production readiness
+  description: Minimum bar for services and websites that take production traffic.
+spec:
+  appliesTo:
+    kinds: [Component]
+    types: [service, website]
+    lifecycles: [production]
+  levels:
+    - {name: bronze, minScore: 50}
+    - {name: silver, minScore: 75}
+    - {name: gold, minScore: 90}
+  rules:
+    - id: has-owner
+      title: Owned by a team in the catalog
+      weight: 3
+      check: {fact: owner.resolved, equals: true}
+      remediation: Set spec.owner to an existing Group.
+    - id: has-ci
+      title: Has a CI pipeline
+      weight: 3
+      check: {fact: ci.present, equals: true}
+      remediation: Add a workflow under .github/workflows (or .gitlab-ci.yml / Jenkinsfile).
+    - id: ci-runs-tests
+      title: CI runs the test suite
+      weight: 2
+      check: {fact: ci.runsTests, equals: true}
+      remediation: Make CI run go test / pytest / npm test / make check.
+    - id: readme
+      title: README explains the service
+      weight: 2
+      check:
+        all:
+          - {fact: readme.present, equals: true}
+          - {fact: readme.words, gte: 60}
+      remediation: Write a README of at least 60 words covering purpose, running and operations.
+    - id: oncall
+      title: On-call link
+      weight: 2
+      check: {fact: oncall.link, matches: '^https://'}
+      remediation: Add the paved.dev/oncall-url annotation or a link with type oncall.
+    - id: deps-fresh
+      title: Dependencies reasonably fresh
+      weight: 2
+      check:
+        all:
+          - {fact: deps.outdatedRatio, lte: 0.34}
+          - {fact: deps.majorsBehind, lte: 1}
+      remediation: Upgrade outdated dependencies (see `paved score deps <entity>`).
+    - id: in-system
+      title: Part of a system
+      weight: 1
+      check: {fact: system.present, equals: true}
+      remediation: Set spec.system.

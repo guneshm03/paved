@@ -1,0 +1,4 @@
+# paved workspace configuration (all paths relative to this file).
+scorecards: .paved/scorecards
+templates: .paved/templates
+registry: .paved/registry.yaml

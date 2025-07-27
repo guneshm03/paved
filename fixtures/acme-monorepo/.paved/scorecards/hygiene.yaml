@@ -1,0 +1,42 @@
+apiVersion: paved.dev/v1
+kind: Scorecard
+metadata:
+  name: hygiene
+  title: Repository hygiene
+  description: Lightweight hygiene checks for every component, including libraries and experiments.
+spec:
+  appliesTo:
+    kinds: [Component]
+  levels:
+    - {name: basic, minScore: 60}
+    - {name: good, minScore: 85}
+  rules:
+    - id: description
+      title: Has a description
+      check: {fact: entity.hasDescription, equals: true}
+    - id: readme
+      title: Has a README
+      check: {fact: readme.present, equals: true}
+    - id: codeowners
+      title: Has CODEOWNERS
+      check: {fact: codeowners.present, equals: true}
+    - id: techdocs
+      title: Publishes TechDocs
+      weight: 0.5
+      check: {fact: techdocs.present, equals: true}
+    - id: deps-pinned
+      title: Dependencies are pinned
+      check:
+        any:
+          - {fact: deps.present, equals: false}
+          - {fact: deps.unpinned, equals: 0}
+    - id: libyears
+      title: Under 2 libyears of drift
+      weight: 2
+      check:
+        any:
+          - {fact: deps.present, equals: false}
+          - {fact: deps.libyears, lte: 2}
+    - id: not-deprecated
+      title: Not deprecated
+      check: {not: {fact: entity.lifecycle, equals: deprecated}}

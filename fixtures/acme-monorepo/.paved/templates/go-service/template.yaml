@@ -1,0 +1,54 @@
+apiVersion: paved.dev/v1
+kind: Template
+metadata:
+  name: go-service
+  title: Go HTTP service
+  description: Production-ready Go HTTP service with CI, catalog entry and optional Postgres migrations.
+  tags: [go, service]
+spec:
+  output: "services/{{ .name }}"
+  parameters:
+    type: object
+    additionalProperties: false
+    required: [name, description, owner]
+    properties:
+      name:
+        type: string
+        description: Service name (kebab-case), used for the directory and catalog entity.
+        pattern: '^[a-z][a-z0-9-]{1,38}[a-z0-9]$'
+      description:
+        type: string
+        description: One-sentence description for the catalog.
+        minLength: 10
+        maxLength: 200
+      owner:
+        type: string
+        description: Owning Group in the catalog.
+        pattern: '^[a-z0-9][a-z0-9-]*$'
+      system:
+        type: string
+        description: System the service belongs to (optional).
+        default: ""
+      port:
+        type: integer
+        description: HTTP listen port.
+        minimum: 1024
+        maximum: 65535
+        default: 8080
+      withDatabase:
+        type: boolean
+        description: Add a Postgres resource dependency and a migrations directory.
+        default: false
+      oncallUrl:
+        type: string
+        description: On-call schedule URL.
+        format: uri
+      goVersion:
+        type: string
+        enum: ["1.23", "1.24"]
+        default: "1.24"
+      tags:
+        type: array
+        items: {type: string, pattern: '^[a-z0-9-]+$'}
+        uniqueItems: true
+        default: [go, service]
