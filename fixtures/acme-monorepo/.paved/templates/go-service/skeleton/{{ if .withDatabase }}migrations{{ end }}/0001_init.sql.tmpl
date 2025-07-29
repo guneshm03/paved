@@ -1,0 +1,6 @@
+-- Initial schema for {{ .name }}.
+CREATE TABLE IF NOT EXISTS {{ snake .name }}_events (
+    id         BIGSERIAL PRIMARY KEY,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    payload    JSONB NOT NULL
+);

@@ -1,0 +1,22 @@
+# {{ title .name }}
+
+{{ .description }}
+
+## Running locally
+
+```sh
+PORT={{ toInt .port }} go run .
+curl localhost:{{ toInt .port }}/healthz
+```
+
+## Testing
+
+`go test ./...` runs the unit tests; CI runs them with the race detector on
+every push and pull request.
+
+## Operations
+
+Owned by `{{ .owner }}`.{{ if .oncallUrl }} On-call: {{ .oncallUrl }}.{{ end }}
+{{- if .withDatabase }}
+Schema migrations live in `migrations/` and are applied in lexical order.
+{{- end }}

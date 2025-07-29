@@ -1,0 +1,33 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: {{ .name }}
+  title: {{ title .name }}
+  description: {{ .description }}
+{{- if .oncallUrl }}
+  annotations:
+    paved.dev/oncall-url: {{ .oncallUrl }}
+{{- end }}
+  tags: [{{ join ", " .tags }}]
+spec:
+  type: service
+  lifecycle: experimental
+  owner: {{ .owner }}
+{{- if .system }}
+  system: {{ .system }}
+{{- end }}
+{{- if .withDatabase }}
+  dependsOn: [resource:{{ .name }}-db]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: {{ .name }}-db
+  description: Postgres database for {{ .name }}.
+spec:
+  type: database
+  owner: {{ .owner }}
+{{- if .system }}
+  system: {{ .system }}
+{{- end }}
+{{- end }}
