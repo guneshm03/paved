@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: {{ .name }}
+  description: Consumes {{ .topic }} events.
+  tags: [python, worker]
+spec:
+  type: service
+  lifecycle: experimental
+  owner: {{ .owner }}
+  system: platform-core
+  dependsOn: [resource:events-bus]

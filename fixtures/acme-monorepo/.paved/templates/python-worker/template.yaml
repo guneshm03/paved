@@ -1,0 +1,34 @@
+apiVersion: paved.dev/v1
+kind: Template
+metadata:
+  name: python-worker
+  title: Python queue worker
+  description: Background worker consuming one queue topic, with pytest CI.
+  tags: [python, worker]
+spec:
+  output: "services/{{ .name }}"
+  parameters:
+    type: object
+    additionalProperties: false
+    required: [name, owner, topic]
+    properties:
+      name:
+        type: string
+        pattern: '^[a-z][a-z0-9-]{1,38}[a-z0-9]$'
+        description: Worker name (kebab-case).
+      owner:
+        type: string
+        description: Owning Group in the catalog.
+      topic:
+        type: string
+        description: Event-bus topic to consume.
+        pattern: '^[a-z][a-z0-9.]*$'
+      concurrency:
+        type: integer
+        minimum: 1
+        maximum: 64
+        default: 4
+      pythonVersion:
+        type: string
+        enum: ["3.11", "3.12"]
+        default: "3.12"

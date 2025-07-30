@@ -1,0 +1,9 @@
+"""{{ title .name }}: consumes `{{ .topic }}` with {{ toInt .concurrency }} workers."""
+
+TOPIC = "{{ .topic }}"
+CONCURRENCY = {{ toInt .concurrency }}
+
+
+def handle(event: dict) -> dict:
+    """Process one event; return the acknowledgement payload."""
+    return {"topic": TOPIC, "id": event.get("id"), "status": "processed"}
