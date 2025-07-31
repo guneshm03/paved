@@ -1,0 +1,59 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payments-db
+  description: Primary Postgres cluster for payments.
+spec:
+  type: database
+  owner: team-payments
+  system: billing
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: ledger-db
+  description: Append-only ledger store.
+spec:
+  type: database
+  owner: team-payments
+  system: billing
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: catalog-db
+  description: Product catalog database.
+spec:
+  type: database
+  owner: team-growth
+  system: storefront
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: sessions-cache
+  description: Redis cluster holding login sessions.
+spec:
+  type: cache
+  owner: team-platform
+  system: platform-core
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: events-bus
+  description: Shared event bus (topics per domain).
+spec:
+  type: message-queue
+  owner: team-platform
+  system: platform-core
+---
+# Deliberate problem: nothing depends on it and it belongs to no system.
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: legacy-ftp
+  description: SFTP drop used by a retired partner integration.
+spec:
+  type: file-server
+  owner: team-platform

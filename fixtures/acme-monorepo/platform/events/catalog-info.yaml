@@ -1,0 +1,15 @@
+# Deliberate problem: the event contract is declared, but no component lists
+# it in providesApis yet (unprovided-api orphan).
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: events-api
+  title: Domain events
+  description: AsyncAPI contract for domain events on the shared bus.
+spec:
+  type: asyncapi
+  lifecycle: production
+  owner: team-platform
+  system: platform-core
+  definition:
+    $text: ./events.asyncapi.yaml

@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: payments-sdk
+  title: Payments SDK
+  description: Go client for the Payments API, shipped with payments-service.
+  tags: [go, library]
+spec:
+  type: library
+  lifecycle: production
+  owner: team-payments
+  subcomponentOf: payments-service
+  consumesApis: [payments-api]

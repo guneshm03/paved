@@ -1,0 +1,71 @@
+# Organisation structure for the fictional Acme engineering org.
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: engineering
+  title: Engineering
+  description: All product and platform engineering teams.
+spec:
+  type: department
+  profile:
+    displayName: Engineering
+  children: [team-payments, team-platform, team-growth, team-security]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-payments
+  title: Payments
+  description: Owns money movement, ledgers and the payments SDK.
+spec:
+  type: team
+  parent: engineering
+  children: []
+  members: [payments-lead, payments-eng-1, payments-eng-2]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-platform
+  title: Platform
+  description: Identity, messaging and shared infrastructure.
+spec:
+  type: team
+  parent: engineering
+  children: []
+  members: [platform-lead, platform-eng-1]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-growth
+  title: Growth
+  description: Storefront, checkout and product discovery.
+spec:
+  type: team
+  parent: engineering
+  children: [team-data]
+  members: [growth-lead, growth-eng-1]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-data
+  title: Data science
+  description: Recommendation models; a sub-team of Growth.
+spec:
+  type: sub-team
+  parent: team-growth
+  children: []
+  members: [ds-lead]
+---
+# Deliberate problem: a team that owns nothing and has no members (empty-group orphan).
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-security
+  title: Security
+spec:
+  type: team
+  parent: engineering
+  children: []
