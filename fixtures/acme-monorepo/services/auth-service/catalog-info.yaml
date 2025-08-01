@@ -1,0 +1,31 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: auth-service
+  title: Auth service
+  description: Login, sessions and service-to-service tokens.
+  annotations:
+    paved.dev/oncall-url: https://oncall.acme.example/schedules/platform
+    pagerduty.com/service-id: PLAT0042
+    backstage.io/techdocs-ref: dir:.
+  tags: [go, security]
+spec:
+  type: service
+  lifecycle: production
+  owner: team-platform
+  system: platform-core
+  providesApis: [auth-api]
+  dependsOn: [resource:sessions-cache]
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: auth-api
+  description: Token issuance and introspection.
+spec:
+  type: openapi
+  lifecycle: production
+  owner: team-platform
+  system: platform-core
+  definition:
+    $text: ./openapi.yaml
