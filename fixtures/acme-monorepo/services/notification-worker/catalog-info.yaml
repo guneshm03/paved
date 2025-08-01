@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: notification-worker
+  description: Sends e-mail and push notifications from domain events.
+  annotations:
+    paved.dev/oncall-url: https://oncall.acme.example/schedules/platform
+  tags: [python]
+spec:
+  type: service
+  lifecycle: production
+  owner: team-platform
+  system: platform-core
+  consumesApis: [events-api]
+  dependsOn: [resource:events-bus]

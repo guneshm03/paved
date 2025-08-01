@@ -1,0 +1,7 @@
+# runtime
+acme-web==2.3.0
+acme-orm==1.4.2
+acme-cache>=0.9
+# test
+acme-testkit==7.0.0
+requests

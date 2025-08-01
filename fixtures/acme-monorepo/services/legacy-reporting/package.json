@@ -1,0 +1,7 @@
+{
+  "name": "legacy-reporting",
+  "dependencies": {
+    "@acme/http-client": "1.2.0",
+    "@acme/csv": "0.3.1"
+  }
+}

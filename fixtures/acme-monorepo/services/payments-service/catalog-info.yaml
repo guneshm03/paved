@@ -1,0 +1,36 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: payments-service
+  title: Payments service
+  description: Authorises and captures card payments and emits payment events.
+  annotations:
+    paved.dev/oncall-url: https://oncall.acme.example/schedules/payments
+    pagerduty.com/service-id: PAY1234
+    backstage.io/techdocs-ref: dir:.
+  tags: [go, payments, pci]
+  links:
+    - url: https://dashboards.acme.example/d/payments
+      title: Dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: team-payments
+  system: billing
+  providesApis: [payments-api]
+  consumesApis: [ledger-api, auth-api]
+  dependsOn: [resource:payments-db, resource:events-bus]
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: payments-api
+  title: Payments API
+  description: Authorise, capture and refund card payments.
+spec:
+  type: openapi
+  lifecycle: production
+  owner: team-payments
+  system: billing
+  definition:
+    $text: ./openapi.yaml

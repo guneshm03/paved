@@ -1,0 +1,29 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ledger-service
+  title: Ledger service
+  description: Double-entry ledger for every money movement.
+  annotations:
+    paved.dev/oncall-url: https://oncall.acme.example/schedules/payments
+  tags: [go, payments]
+spec:
+  type: service
+  lifecycle: production
+  owner: team-payments
+  system: billing
+  providesApis: [ledger-api]
+  dependsOn: [resource:ledger-db]
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: ledger-api
+  description: gRPC API for posting and querying ledger entries.
+spec:
+  type: grpc
+  lifecycle: production
+  owner: team-payments
+  system: billing
+  definition:
+    $text: ./proto/ledger.proto

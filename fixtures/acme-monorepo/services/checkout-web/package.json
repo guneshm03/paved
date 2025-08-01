@@ -1,0 +1,13 @@
+{
+  "name": "checkout-web",
+  "private": true,
+  "dependencies": {
+    "@acme/ui-kit": "^3.4.0",
+    "@acme/router": "^5.1.0",
+    "@acme/http-client": "~1.8.0"
+  },
+  "devDependencies": {
+    "@acme/lint-config": "^2.0.0",
+    "@acme/test-runner": "^29.0.0"
+  }
+}

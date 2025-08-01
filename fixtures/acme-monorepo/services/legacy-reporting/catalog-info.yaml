@@ -1,0 +1,12 @@
+# Deliberate problems: owner team-reporting was disbanded (dangling-ref) and the
+# component is not part of any system (orphan: no-owner, no-system).
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: legacy-reporting
+  description: Monthly finance CSV exports.
+spec:
+  type: service
+  lifecycle: deprecated
+  owner: team-reporting
+  consumesApis: [ledger-api]
