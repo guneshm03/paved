@@ -1,0 +1,28 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: billing
+  title: Billing
+  description: Payments, ledger and invoicing.
+spec:
+  owner: team-payments
+  domain: commerce
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: storefront
+  title: Storefront
+  description: Customer-facing shopping experience.
+spec:
+  owner: team-growth
+  domain: commerce
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: platform-core
+  title: Platform core
+  description: Identity, messaging and shared runtime services.
+spec:
+  owner: team-platform
