@@ -1,0 +1,25 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: invoice-service
+  title: Invoice Service
+  description: Generates and sends customer invoices.
+  annotations:
+    paved.dev/oncall-url: https://oncall.acme.example/schedules/payments
+  tags: [go, payments, billing]
+spec:
+  type: service
+  lifecycle: experimental
+  owner: team-payments
+  system: billing
+  dependsOn: [resource:invoice-service-db]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: invoice-service-db
+  description: Postgres database for invoice-service.
+spec:
+  type: database
+  owner: team-payments
+  system: billing
