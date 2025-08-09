@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: audit-worker
+  description: Consumes audit.events events.
+  tags: [python, worker]
+spec:
+  type: service
+  lifecycle: experimental
+  owner: team-platform
+  system: platform-core
+  dependsOn: [resource:events-bus]
