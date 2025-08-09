@@ -1,0 +1,45 @@
+Scorecard: Production readiness (production-readiness)
+Entities: 6   Mean score: 78.9   Levels: gold=2 silver=2 bronze=1 none=1
+
+ENTITY                         OWNER                SCORE  LEVEL   FAILED RULES
+component:checkout-web         group:team-growth     46.7  none    ci-runs-tests,readme,oncall,deps-fresh
+component:catalog-service      group:team-growth     53.3  bronze  has-ci,ci-runs-tests,deps-fresh
+component:ledger-service       group:team-payments   86.7  silver  deps-fresh
+component:notification-worker  group:team-platform   86.7  silver  readme
+component:auth-service         group:team-platform  100.0  gold    -
+component:payments-service     group:team-payments  100.0  gold    -
+
+RULE           WEIGHT  PASSED  FAILED  PASS RATE
+has-owner      3       6       0       100.0%
+has-ci         3       5       1        83.3%
+ci-runs-tests  2       4       2        66.7%
+readme         2       4       2        66.7%
+oncall         2       5       1        83.3%
+deps-fresh     2       3       3        50.0%
+in-system      1       6       0       100.0%
+
+component:checkout-web (46.7):
+  x ci-runs-tests: ci.runsTests = false, want == true
+    fix: Make CI run go test / pytest / npm test / make check.
+  x readme: readme.words = 7, want >= 60
+    fix: Write a README of at least 60 words covering purpose, running and operations.
+  x oncall: oncall.link = "", want matches "^https://"
+    fix: Add the paved.dev/oncall-url annotation or a link with type oncall.
+  x deps-fresh: deps.outdatedRatio = 0.8, want <= 0.34
+    fix: Upgrade outdated dependencies (see `paved score deps <entity>`).
+
+component:catalog-service (53.3):
+  x has-ci: ci.present = false, want == true
+    fix: Add a workflow under .github/workflows (or .gitlab-ci.yml / Jenkinsfile).
+  x ci-runs-tests: ci.runsTests = false, want == true
+    fix: Make CI run go test / pytest / npm test / make check.
+  x deps-fresh: deps.outdatedRatio = 0.75, want <= 0.34
+    fix: Upgrade outdated dependencies (see `paved score deps <entity>`).
+
+component:ledger-service (86.7):
+  x deps-fresh: deps.outdatedRatio = 1, want <= 0.34
+    fix: Upgrade outdated dependencies (see `paved score deps <entity>`).
+
+component:notification-worker (86.7):
+  x readme: readme.present = false, want == true
+    fix: Write a README of at least 60 words covering purpose, running and operations.

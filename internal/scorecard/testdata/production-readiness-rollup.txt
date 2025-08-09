@@ -1,0 +1,7 @@
+Team rollup: Production readiness
+
+TEAM                   OWNED  MEAN  SUBTREE  SUBTREE MEAN  MIN   LEVELS                           TOP FAILING
+group:engineering      0      -     6        78.9          46.7  gold=2 silver=2 bronze=1 none=1  deps-fresh(3) ci-runs-tests(2)
+  group:team-growth    2      50.0  2        50.0          46.7  bronze=1 none=1                  ci-runs-tests(2) deps-fresh(2)
+  group:team-payments  2      93.4  2        93.4          86.7  gold=1 silver=1                  deps-fresh(1)
+  group:team-platform  2      93.4  2        93.4          86.7  gold=1 silver=1                  readme(1)
