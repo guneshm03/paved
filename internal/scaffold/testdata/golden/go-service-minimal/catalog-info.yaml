@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: orders-api
+  title: Orders Api
+  description: Accepts and tracks customer orders.
+  tags: [go, service]
+spec:
+  type: service
+  lifecycle: experimental
+  owner: team-growth
